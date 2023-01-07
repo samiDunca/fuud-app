@@ -1,0 +1,52 @@
+.upload {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem 6rem;
+}
+
+.upload-column {
+  display: grid;
+  grid-template-columns: 1fr 2.8fr;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.upload-column label {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #615551;
+}
+
+.upload-column input,
+.upload-column select {
+  font-size: 1.5rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.upload-column input::placeholder {
+  color: #d3c7c3;
+}
+
+.upload-column input:focus {
+  outline: none;
+  border: 1px solid #f38e82;
+  background-color: #f9f5f3;
+}
+
+.upload-column textarea {
+  grid-column: 2 /3;
+  grid-row: 5 / span 22;
+  align-self: stretch;
+}
+
+.upload-heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  grid-column: 1/-1;
+  color: #615551;
+}
