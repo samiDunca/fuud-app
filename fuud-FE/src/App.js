@@ -1,35 +1,23 @@
 import "./App.css";
-import { useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
 
 import Header from "./components/header/header";
 import DisplayRecipes from "./components/displayRecipes/displayRecipes";
 import Recipe from "./components/recipe/recipe";
+import { useSelector } from "react-redux";
+import EN_CST from "./constants/en-recipeConstants";
+import RO_CST from "./constants/ro-recipeConstants";
 
 function App() {
-  const { t, i18n } = useTranslation();
-
-  const changeLanguage = (language) => {
-    i18n.changeLanguage(language);
-  };
-
+  const tglLng = useSelector((state) => state.recipe?.toggleLang);
   return (
     <div>
-      <div>
-        <button onClick={() => changeLanguage("en")}>EN</button>
-        <button onClick={() => changeLanguage("ro")}>RO</button>
-        <hr />
-        <Trans i18nKey="description.part1">to GET STARTED</Trans>
-        <div>{t("description.part2")}</div>
-      </div>
       <div className="container">
         <Header />
         <DisplayRecipes />
         <Recipe />
 
         <p className="copyright">
-          &copy; Copyright by team: Stefi, Damaris, Sami. Use for cooking. Don't
-          teach. Don't claim as your own.
+          {tglLng ? EN_CST.COPYRIGHT_MESSAGE : RO_CST.COPYRIGHT_MESSAGE}
         </p>
       </div>
     </div>

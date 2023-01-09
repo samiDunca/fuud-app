@@ -14,11 +14,14 @@ import { getOneRecipe } from "../../store/recipe-actions";
 import { deleteRecipeById } from "../../store/recipe-actions";
 import { recipeActions } from "../../store/recipeSlice";
 import EditRecipeModal from "./editRecipe/editRecipeModal";
+import RO_CST from "../../constants/ro-recipeConstants";
+import EN_CST from "../../constants/en-recipeConstants";
 
 // import { useEffect } from "react";
 
 const Recipe = (props) => {
-  const recipeData = useSelector((state) => state.recipe.currentRecipe?.data);
+  const recipeData = useSelector((state) => state.recipe?.currentRecipe?.data);
+  const tglLng = useSelector((state) => state.recipe?.toggleLang);
 
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +36,7 @@ const Recipe = (props) => {
 
   const mockObj = {
     _id: "",
-    title: "<recipe Title>",
+    title: `<${tglLng ? EN_CST.TITLE_RECIPE : RO_CST.TITLE_RECIPE}>`,
     difficulty: "--",
     preparationTime: "--",
     ingredients: [],
@@ -94,8 +97,13 @@ const Recipe = (props) => {
     recipeData === undefined ? mockIngr : ingredientsObj;
   const currentRecipe = recipeData === undefined ? mockObj : recipeData;
   const minutes =
-    preparationTime === undefined ? "not specified" : preparationTime;
-  const directions1 = directions === undefined ? "not specified" : directions;
+    preparationTime === undefined
+      ? `${tglLng ? EN_CST.NOT_SCD : RO_CST.NOT_SCD}`
+      : preparationTime;
+  const directions1 =
+    directions === undefined
+      ? `${tglLng ? EN_CST.NOT_SCD : RO_CST.NOT_SCD}`
+      : directions;
 
   const deleteRecipeHandler = () => {
     alert("Are you sure you want to delete this recipe?");
@@ -141,7 +149,7 @@ const Recipe = (props) => {
 
       <div className={styles["recipe-ingredients"]}>
         <h2 className={styles["recipe-ingredients-heading"]}>
-          Recipe ingredients
+          {tglLng ? EN_CST.RECIPE_IGT : RO_CST.RECIPE_IGT}
         </h2>
         <ul className={styles["recipe-ingredient-list"]}>
           {ingredients?.map((ing, i) => (
@@ -158,7 +166,9 @@ const Recipe = (props) => {
       </div>
 
       <div className={styles["recipe-directions"]}>
-        <h2 className={styles["recipe-ingredients-heading"]}>How to cook it</h2>
+        <h2 className={styles["recipe-ingredients-heading"]}>
+          {tglLng ? EN_CST.DIRECTIONS : RO_CST.DIRECTIONS}
+        </h2>
         <p className={styles["recipe-directions-text"]}>{directions1}</p>
       </div>
     </div>

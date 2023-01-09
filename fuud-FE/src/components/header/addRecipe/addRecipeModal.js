@@ -5,9 +5,12 @@ import { useRef } from "react";
 
 import styles from "./addRecipeModal.module.css";
 import { addNewRecipe } from "../../../store/recipe-actions";
+import EN_CST from "../../../constants/en-recipeConstants";
+import RO_CST from "../../../constants/ro-recipeConstants";
 
 const AddRecipeModal = (props) => {
   const dispatch = useDispatch();
+  const tglLng = useSelector((state) => state.recipe?.toggleLang);
 
   const titleRef = useRef();
   const prepTimeRef = useRef();
@@ -76,7 +79,7 @@ const AddRecipeModal = (props) => {
   return (
     <>
       <Modal
-        title="Add Recipe"
+        title={`${tglLng ? EN_CST.ADD_RECIPE : RO_CST.ADD_RECIPE}`}
         open={props.isOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -84,10 +87,16 @@ const AddRecipeModal = (props) => {
       >
         <form className={styles.upload}>
           <div className={styles["upload-column"]}>
-            <h3 className={styles["upload-heading"]}>Recipe data</h3>
-            <label>Title</label>
+            <h3 className={styles["upload-heading"]}>
+              {tglLng ? EN_CST.RECIPE_DATA : RO_CST.RECIPE_DATA}
+            </h3>
+            <label>{tglLng ? EN_CST.TITLE : RO_CST.TITLE}</label>
             <input name="title" type="text" ref={titleRef} required />
-            <label>Prep time</label>
+            <label>
+              {tglLng
+                ? EN_CST.PREPARATION_TIME_SHORT
+                : RO_CST.PREPARATION_TIME_SHORT}
+            </label>
             <input
               name="prepTime"
               type="text"
@@ -95,13 +104,15 @@ const AddRecipeModal = (props) => {
               placeholder="Format: 'numbers,Unit'"
               required
             />
-            <label>Difficulty</label>
+            <label>{tglLng ? EN_CST.DIFFICULTY : RO_CST.DIFFICULTY}</label>
             <select name="levels" ref={difficultyRef} required>
               <option value="easy">easy</option>
               <option value="moderate">moderate</option>
               <option value="challenging">challenging</option>
             </select>
-            <label>Preparation</label>
+            <label>
+              {tglLng ? EN_CST.DIRECTIONS_SHORT : RO_CST.DIRECTIONS_SHORT}
+            </label>
             <textarea
               name="prep"
               type="text"
@@ -112,7 +123,9 @@ const AddRecipeModal = (props) => {
           </div>
 
           <div className={styles["upload-column"]}>
-            <h3 className={styles["upload-heading"]}>Ingredients</h3>
+            <h3 className={styles["upload-heading"]}>
+              {tglLng ? EN_CST.INGREDIENTS : RO_CST.INGREDIENTS}
+            </h3>
             <label>Ingredient 1</label>
             <input
               type="text"
