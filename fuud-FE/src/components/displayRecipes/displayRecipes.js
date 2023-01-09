@@ -8,7 +8,7 @@ import { getOneRecipe } from "../../store/recipe-actions";
 
 const DisplayRecipes = (props) => {
   const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipe.recipes);
+  const recipes = useSelector((state) => state.recipe?.recipes);
   // const _id = useSelector((state) => state.recipe.currentRecipeId);
   // const currentRecipe = useSelector((state) => state.recipe.currentRecipe);
 

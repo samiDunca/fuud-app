@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "antd";
 
 import styles from "./editRecipeModal.module.css";
 import { updateRecipeById } from "../../../store/recipe-actions";
+import EN_CST from "../../../constants/en-recipeConstants";
+import RO_CST from "../../../constants/ro-recipeConstants";
 
 const EditRecipeModal = (props) => {
   const dispatch = useDispatch();
+  const tglLng = useSelector((state) => state.recipe?.toggleLang);
   const [recipe, setRecipe] = useState({});
   const [ingr, setIngr] = useState({});
 
@@ -127,7 +130,7 @@ const EditRecipeModal = (props) => {
   return (
     <>
       <Modal
-        title="Edit recipe"
+        title={`${tglLng ? EN_CST.ADD_RECIPE : RO_CST.ADD_RECIPE}`}
         open={props.isOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -135,8 +138,10 @@ const EditRecipeModal = (props) => {
       >
         <form className={styles.upload}>
           <div className={styles["upload-column"]}>
-            <h3 className={styles["upload-heading"]}>Recipe data</h3>
-            <label>Title</label>
+            <h3 className={styles["upload-heading"]}>
+              {tglLng ? EN_CST.RECIPE_DATA : RO_CST.RECIPE_DATA}
+            </h3>
+            <label>{tglLng ? EN_CST.TITLE : RO_CST.TITLE}</label>
             <input
               name="title"
               type="text"
@@ -144,7 +149,11 @@ const EditRecipeModal = (props) => {
               onChange={handleOnChange}
               required
             />
-            <label>Prep time</label>
+            <label>
+              {tglLng
+                ? EN_CST.PREPARATION_TIME_SHORT
+                : RO_CST.PREPARATION_TIME_SHORT}
+            </label>
             <input
               name="preparationTime"
               type="text"
@@ -153,7 +162,7 @@ const EditRecipeModal = (props) => {
               onChange={handleOnChange}
               required
             />
-            <label>Difficulty</label>
+            <label>{tglLng ? EN_CST.DIFFICULTY : RO_CST.DIFFICULTY}</label>
             <select
               name="difficulty"
               value={recipe.difficulty}
@@ -164,7 +173,9 @@ const EditRecipeModal = (props) => {
               <option value="moderate">moderate</option>
               <option value="challenging">challenging</option>
             </select>
-            <label>Directions</label>
+            <label>
+              {tglLng ? EN_CST.DIRECTIONS_SHORT : RO_CST.DIRECTIONS_SHORT}
+            </label>
             <textarea
               name="directions"
               type="text"
@@ -176,7 +187,9 @@ const EditRecipeModal = (props) => {
           </div>
 
           <div className={styles["upload-column"]}>
-            <h3 className={styles["upload-heading"]}>Ingredients</h3>
+            <h3 className={styles["upload-heading"]}>
+              {tglLng ? EN_CST.INGREDIENTS : RO_CST.INGREDIENTS}
+            </h3>
             <label>Ingredient 1</label>
             <input
               type="text"

@@ -6,6 +6,7 @@ const recipeSlice = createSlice({
     recipes: [],
     currentRecipe: null,
     currentRecipeId: "",
+    toggleLang: false,
   },
   reducers: {
     replaceRecipes: (state, action) => {
@@ -35,17 +36,13 @@ const recipeSlice = createSlice({
       state.recipes.splice(index, 1, action.payload);
       state.currentRecipe = { data: action.payload };
     },
+    toggleLanguage: (state, action) => {
+      console.log(action.payload);
+      state.toggleLang = action.payload;
+    },
   },
 });
 
 export const recipeActions = recipeSlice.actions;
 
 export default recipeSlice;
-
-// const recipesClone = state.recipes;
-//       const index = state.recipes.findIndex(
-//         (el) => el.id === action.payload.id
-//       );
-//       recipesClone.splice(index, 1, action.payload);
-//       state.recipes = recipesClone;
-//       state.currentRecipe = action.payload;
